@@ -12,7 +12,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://2300031027-chbhanuprakash.github.io/OnlineVoting/",
+  "homepage": "https://2300031027-chbhanuprakash.github.io/OnlineVotingSystem/",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2",
