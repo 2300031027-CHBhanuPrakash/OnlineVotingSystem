@@ -38,9 +38,9 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <div className="container-content">
-        <h2>Login</h2>
-        <p>Enter your credentials to access the voting system</p>
+      <div className="auth-card">
+        <h2>System Access</h2>
+        <p>Provide your credentials to enter the system</p>
 
         <div className="form-group">
           <label>Login Type:</label>
@@ -78,12 +78,12 @@ const Login = () => {
 
           {errors.general && <div className="error-message general">{errors.general}</div>}
 
-          <button type="submit" className="btn-primary">Login</button>
+          <button type="submit" className="btn-primary">Access System</button>
         </form>
 
         {loginType === 'voter' && (
           <div className="auth-links">
-            <p>Don't have an account? <a href="/signup">Register here</a></p>
+            <p>Not registered? <a href="/signup">Create account</a></p>
           </div>
         )}
       </div>

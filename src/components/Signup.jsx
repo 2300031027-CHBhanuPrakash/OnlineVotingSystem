@@ -49,9 +49,9 @@ const Signup = () => {
 
   return (
     <div className="signup-container">
-      <div className="container-content">
-        <h2>Voter Registration</h2>
-        <p>Create your account to participate in the election</p>
+      <div className="auth-card">
+        <h2>User Registration</h2>
+        <p>Register your account for system access</p>
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -105,11 +105,11 @@ const Signup = () => {
 
         {errors.general && <div className="error-message general">{errors.general}</div>}
 
-        <button type="submit" className="btn-primary">Register</button>
+        <button type="submit" className="btn-primary">Create Account</button>
       </form>
 
       <div className="auth-links">
-        <p>Already have an account? <a href="/">Login here</a></p>
+        <p>Already registered? <a href="/">Access system</a></p>
       </div>
       </div>
     </div>

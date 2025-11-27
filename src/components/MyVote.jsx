@@ -12,17 +12,17 @@ const MyVote = () => {
   return (
     <div className="my-vote-container">
       <div className="container-content">
-        <h2>My Vote</h2>
+        <h2>My Selection</h2>
         {userVoteStatus ? (
           <div className="vote-info">
-            <p>You have successfully cast your vote.</p>
-            <p><strong>Note:</strong> For security reasons, your specific vote choice is not displayed.</p>
-            <p>Thank you for participating in the election!</p>
+            <p>Your selection has been recorded successfully.</p>
+            <p><strong>Note:</strong> For privacy reasons, your specific choice is not shown.</p>
+            <p>Thank you for your participation!</p>
           </div>
         ) : (
           <div className="no-vote">
-            <p>You have not cast your vote yet.</p>
-            <p>Please go to the Voting page to participate.</p>
+            <p>You have not made a selection yet.</p>
+            <p>Please visit the Selection page to participate.</p>
           </div>
         )}
       </div>

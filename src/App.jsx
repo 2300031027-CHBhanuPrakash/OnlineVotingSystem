@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { CandidatesProvider } from './context/CandidatesContext';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -15,13 +14,12 @@ import './App.css';
 
 function Navigation() {
   const { user, logout } = useAuth();
-  const { darkMode, toggleDarkMode } = useTheme();
   const location = useLocation();
 
   return (
     <nav>
       <div className="nav-brand">
-        <h2>🗳️ Online Voting System</h2>
+        <h2>📊 Election Portal</h2>
       </div>
 
       <div className="nav-links">
@@ -43,9 +41,6 @@ function Navigation() {
             <button onClick={logout} className="btn-secondary">Logout</button>
           </>
         )}
-        <button onClick={toggleDarkMode} className="theme-toggle">
-          {darkMode ? '☀️' : '🌙'}
-        </button>
       </div>
     </nav>
   );
@@ -53,10 +48,9 @@ function Navigation() {
 
 function AppContent() {
   const { user } = useAuth();
-  const { darkMode } = useTheme();
 
   return (
-    <div className={`App ${darkMode ? 'dark' : 'light'}`}>
+    <div className="App">
       <Navigation />
       <main>
         <Routes>
@@ -75,15 +69,13 @@ function AppContent() {
 
 function App() {
   return (
-    <ThemeProvider>
-      <CandidatesProvider>
-        <AuthProvider>
-          <Router>
-            <AppContent />
-          </Router>
-        </AuthProvider>
-      </CandidatesProvider>
-    </ThemeProvider>
+    <CandidatesProvider>
+      <AuthProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </AuthProvider>
+    </CandidatesProvider>
   );
 }
 

@@ -39,10 +39,10 @@ const Voting = () => {
   if (electionStatus === 'ended') {
     return (
       <div className="voting-container">
-        <h2>Election Ended</h2>
-        <p>The election has ended. Voting is no longer available.</p>
+        <h2>Process Terminated</h2>
+        <p>The selection process has concluded. Submissions are no longer accepted.</p>
         <div className="election-status ended">
-          <p>Status: Election Ended</p>
+          <p>Status: Process Completed</p>
         </div>
       </div>
     );
@@ -51,10 +51,10 @@ const Voting = () => {
   if (userVoteStatus) {
     return (
       <div className="voting-container">
-        <h2>Voting Complete</h2>
-        <p>You have already cast your vote in this election.</p>
+        <h2>Submission Confirmed</h2>
+        <p>Your selection has been recorded in the system.</p>
         <div className="election-status active">
-          <p>Status: Election Active</p>
+          <p>Status: Process Active</p>
         </div>
       </div>
     );
@@ -63,8 +63,8 @@ const Voting = () => {
   return (
     <div className="voting-container">
       <div className="container-content">
-        <h2>Cast Your Vote</h2>
-        <p>Select one candidate to vote for. Your vote is anonymous and secure.</p>
+        <h2>Submit Your Selection</h2>
+        <p>Choose your preferred option from the available choices. Your selection is confidential.</p>
 
       <div className="candidates-grid">
         {candidates.map((candidate) => (
@@ -89,10 +89,10 @@ const Voting = () => {
 
       <div className="voting-actions">
         <button onClick={handleVoteClick} className="vote-button" disabled={!selectedCandidate}>
-          Submit Vote
+          Confirm Selection
         </button>
         {selectedCandidate && (
-          <p className="selected-info">Selected: {selectedCandidateData?.name}</p>
+          <p className="selected-info">Chosen: {selectedCandidateData?.name}</p>
         )}
       </div>
 

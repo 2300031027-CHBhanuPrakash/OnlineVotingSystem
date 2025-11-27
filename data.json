@@ -2,22 +2,22 @@
   "candidates": [
     {
       "id": 1,
-      "name": "Jagan Mohan Reddy",
-      "description": "YSRCP",
+      "name": "Option Alpha",
+      "description": "Primary Choice",
       "votes": 0,
       "symbol": "/src/assets/react.svg"
     },
     {
       "id": 2,
-      "name": "Chandra Babu Naidu",
-      "description": "TDP",
+      "name": "Option Beta",
+      "description": "Alternative Choice",
       "votes": 0,
       "symbol": "/vite.svg"
     },
     {
       "id": 3,
-      "name": "Pawan Kalyan",
-      "description": "Janasena",
+      "name": "Option Gamma",
+      "description": "Third Option",
       "votes": 0,
       "symbol": "/src/assets/react.svg"
     }

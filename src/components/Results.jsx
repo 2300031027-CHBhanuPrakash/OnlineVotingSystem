@@ -8,7 +8,7 @@ const Results = () => {
     fetchResults();
   }, [fetchResults]);
 
-  const colors = ['#ff6384', '#36a2eb', '#cc65fe', '#4bc0c0', '#ff9f40'];
+  const colors = ['#6b7280', '#4b5563', '#9ca3af', '#6b7280', '#4b5563'];
   const chartData = results.map((result, index) => ({
     candidate: result.name,
     party: result.party,
@@ -26,7 +26,7 @@ const Results = () => {
   return (
     <div className="results-container">
       <div className="container-content">
-        <h2>Election Results</h2>
+        <h2>Selection Outcomes</h2>
       <div className="chart-container">
         {chartData.map((result, index) => (
           <div key={index} className="chart-bar">
@@ -35,12 +35,12 @@ const Results = () => {
               width: `${(result.votes / maxVotes) * 100}%`,
               backgroundColor: result.color
             }}>
-              <span className="bar-value">{result.votes} votes ({totalVotes > 0 ? ((result.votes / totalVotes) * 100).toFixed(1) : 0}%)</span>
+              <span className="bar-value">{result.votes} selections ({totalVotes > 0 ? ((result.votes / totalVotes) * 100).toFixed(1) : 0}%)</span>
             </div>
           </div>
         ))}
       </div>
-      <div className="total-votes">Total Votes: {totalVotes}</div>
+      <div className="total-votes">Total Selections: {totalVotes}</div>
       </div>
     </div>
   );

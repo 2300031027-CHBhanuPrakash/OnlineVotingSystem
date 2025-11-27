@@ -48,27 +48,27 @@ const AdminPanel = () => {
     <div className="admin-panel-container">
       <div className="container-content">
         <div className="admin-header">
-          <h2>Candidate Management</h2>
+          <h2>Option Administration</h2>
           <button onClick={() => navigate('/dashboard')} className="btn-secondary">
-            Back to Dashboard
+            Return to Panel
           </button>
         </div>
 
         <div className="admin-content">
           <div className="candidates-list-section">
             <div className="candidates-header">
-              <h3>Current Candidates ({candidates.length})</h3>
+              <h3>Available Options ({candidates.length})</h3>
               {candidates.length > 0 && (
                 <button
                   onClick={handleClearAll}
                   className="btn-danger"
                 >
-                  Clear All Data
+                  Reset All Records
                 </button>
               )}
             </div>
             {candidates.length === 0 ? (
-              <p>No candidates added yet.</p>
+              <p>No options configured yet.</p>
             ) : (
               <div className="candidates-grid-admin">
                 {candidates.map((candidate) => (

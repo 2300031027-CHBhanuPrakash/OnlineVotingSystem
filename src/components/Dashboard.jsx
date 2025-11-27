@@ -7,6 +7,7 @@ const Dashboard = () => {
   const { user } = useAuth();
   const { electionStatus, userVoteStatus, checkUserVoteStatus, candidates } = useCandidates();
   const navigate = useNavigate();
+  const [activeSection, setActiveSection] = useState('overview');
 
   useEffect(() => {
     if (user && user.role !== 'admin' && user.aadhaar) {
@@ -35,102 +36,130 @@ const Dashboard = () => {
     }
   };
 
-  return (
-    <div className="dashboard-container">
-      <div className="container-content">
-        <h1>Welcome to the Online Voting System</h1>
-        <div className="dashboard-content">
-        <div className="user-info">
-          <h2>Hello, {user?.name}!</h2>
-          <p>Role: {user?.role === 'admin' ? 'Administrator' : 'Voter'}</p>
+  const renderSidebar = () => {
+    if (user?.role === 'admin') {
+      return (
+        <div className="dashboard-sidebar">
+          <h3>System Admin</h3>
+          <button
+            className={activeSection === 'overview' ? 'active' : ''}
+            onClick={() => setActiveSection('overview')}
+          >
+            Dashboard
+          </button>
+          <button
+            className={activeSection === 'candidates' ? 'active' : ''}
+            onClick={() => setActiveSection('candidates')}
+          >
+            Options
+          </button>
+          <button onClick={() => navigate('/results')}>
+            Reports
+          </button>
         </div>
+      );
+    } else {
+      return (
+        <div className="dashboard-sidebar">
+          <h3>User Portal</h3>
+          <button
+            className={activeSection === 'overview' ? 'active' : ''}
+            onClick={() => setActiveSection('overview')}
+          >
+            Dashboard
+          </button>
+          <button onClick={() => navigate('/voting')} disabled={userVoteStatus}>
+            {userVoteStatus ? 'Completed' : 'Submit'}
+          </button>
+          <button onClick={() => navigate('/my-vote')}>
+            My Record
+          </button>
+          <button onClick={() => navigate('/results')}>
+            Reports
+          </button>
+        </div>
+      );
+    }
+  };
 
-        {user?.role !== 'admin' && (
-          <div className="voter-actions">
-            <h3>Voter Options</h3>
-            <div className="action-buttons">
-              <button
-                onClick={() => navigate('/voting')}
-                className="btn-primary"
-                disabled={userVoteStatus}
-              >
-                {userVoteStatus ? 'Already Voted' : 'Vote'}
-              </button>
-              <button onClick={() => navigate('/my-vote')} className="btn-secondary">
-                My Vote
-              </button>
+  const renderMainContent = () => {
+    switch (activeSection) {
+      case 'overview':
+        return (
+          <div className="dashboard-main">
+            <h1>System Control Panel</h1>
+            <div className="user-info">
+              <h2>Welcome, {user?.name}!</h2>
+              <p>Access Level: {user?.role === 'admin' ? 'System Administrator' : 'User'}</p>
             </div>
-          </div>
-        )}
-
-        {user?.role === 'admin' && (
-          <div className="admin-dashboard">
-            <div className="admin-actions">
-              <h3>Administrator Panel</h3>
-              <div className="admin-controls">
-                <button onClick={() => navigate('/results')} className="btn-primary">
-                  View Results
-                </button>
+            <div className="quick-stats">
+              <h3>System Statistics</h3>
+              <div className="stats-grid">
+                <div className="stat-card">
+                  <h4>Registered Users</h4>
+                  <p>1,250</p>
+                </div>
+                <div className="stat-card">
+                  <h4>Submissions Made</h4>
+                  <p>892</p>
+                </div>
+                <div className="stat-card">
+                  <h4>Available Options</h4>
+                  <p>{candidates.length}</p>
+                </div>
+                <div className="stat-card">
+                  <h4>Process Status</h4>
+                  <p className={`status-${electionStatus}`}>
+                    {electionStatus === 'active' ? 'Running' : 'Completed'}
+                  </p>
+                </div>
               </div>
             </div>
-
-            <div className="admin-content">
-              <div className="candidates-section">
-                <div className="candidates-header">
-                  <h4>Current Candidates ({candidates.length})</h4>
-                  {candidates.length > 0 && (
-                    <button onClick={handleClearAll} className="btn-danger">
-                      Clear All Data
-                    </button>
-                  )}
-                </div>
-                {candidates.length === 0 ? (
-                  <p>No candidates added yet.</p>
-                ) : (
-                  <div className="candidates-grid-admin">
-                    {candidates.map((candidate) => (
-                      <div key={candidate.id} className="candidate-admin-card-small">
-                       <img src={candidate.symbol ? `http://localhost:4000${candidate.symbol}` : '/vite.svg'} alt={candidate.name} className="small-image" />
-                        <div className="candidate-info-small">
-                          <h5>{candidate.name}</h5>
-                          <p className="small-text">{candidate.partyName}</p>
-                          <p className="small-text">Age: {candidate.age}</p>
-                          <p className="small-text">Votes: {candidate.votes || 0}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+          </div>
+        );
+      case 'candidates':
+        return (
+          <div className="dashboard-main">
+            <h1>Options Configuration</h1>
+            <div className="candidates-section">
+              <div className="candidates-header">
+                <h4>Configured Options ({candidates.length})</h4>
+                {candidates.length > 0 && (
+                  <button onClick={handleClearAll} className="btn-danger">
+                    Clear All Data
+                  </button>
                 )}
               </div>
+              {candidates.length === 0 ? (
+                <p>No candidates added yet.</p>
+              ) : (
+                <div className="candidates-grid-admin">
+                  {candidates.map((candidate) => (
+                    <div key={candidate.id} className="candidate-admin-card-small">
+                     <img src={candidate.symbol ? `http://localhost:4000${candidate.symbol}` : '/vite.svg'} alt={candidate.name} className="small-image" />
+                      <div className="candidate-info-small">
+                        <h5>{candidate.name}</h5>
+                        <p className="small-text">{candidate.partyName}</p>
+                        <p className="small-text">Age: {candidate.age}</p>
+                        <p className="small-text">Votes: {candidate.votes || 0}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
-        )}
+        );
+      default:
+        return null;
+    }
+  };
 
-
-        <div className="quick-stats">
-          <h3>Election Overview</h3>
-          <div className="stats-grid">
-            <div className="stat-card">
-              <h4>Total Voters</h4>
-              <p>1,250</p>
-            </div>
-            <div className="stat-card">
-              <h4>Votes Cast</h4>
-              <p>892</p>
-            </div>
-            <div className="stat-card">
-              <h4>Candidates</h4>
-              <p>3</p>
-            </div>
-            <div className="stat-card">
-              <h4>Election Status</h4>
-              <p className={`status-${electionStatus}`}>
-                {electionStatus === 'active' ? 'Active' : 'Ended'}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+  return (
+    <div className="dashboard-container">
+      <div className="dashboard-layout">
+        {renderSidebar()}
+        {renderMainContent()}
       </div>
     </div>
   );
